@@ -170,9 +170,8 @@ class TSPSolver:
             start_time = time.time()
             result_tour = self.branch_and_bound_dfs(graph, initial_start, start_time)
             cost = self.functionf(result_tour)
-            print("Minimum Cost:", result_tour, cost)
             total_time = time.time() - start_time
-            print("--- %s seconds ---" % (total_time))
+            print(f"Time: {total_time:.4f} | Tour cost: {cost:.4f} | Tour: {result_tour}")
 
             return total_time, result_tour 
         else:
@@ -190,14 +189,13 @@ class TSPSolver:
                 for future in futures:
                     result = future.result()
                     cost = self.functionf(result)
-                    print("Minimum Cost:", result, cost)
+                    print(f"Tour cost: {cost:.4f} | Tour: {result}")
+                
 
 
 
 if __name__ == "__main__":
     # Get the current working directory
-    current_directory = os.getcwd()
-    print("Current Working Directory:", current_directory)
 
     # Set the working directory to the directory containing the script
     script_directory = os.path.dirname(os.path.realpath(__file__))

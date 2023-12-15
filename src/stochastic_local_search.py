@@ -130,7 +130,6 @@ class TSPSolver:
             tour[tuple(set((current_state[i], current_state[i+1])))] = True
             # tour.append((current_state[i], current_state[i+1]))
         cost_init = self.cost1(tour)
-        # print(f"ssssss {tour}")
         best_improvement = 0
         city = []
 
@@ -152,7 +151,6 @@ class TSPSolver:
             if gain > 0: # sort by gain
                 current_best.append(next_city)
                 current_gain.append(gain)
-                # print(f"current_gain : {current_gain}")
 
         new_tour = None
         good_one = None
@@ -236,7 +234,6 @@ class TSPSolver:
 
             self.f2.seek(0)
             self.f2.write(f"{b_cost:.4f} | {time.time() - start_time:.4f} \n")
-            print(f"{b_cost:.4f} | {time.time() - start_time:.4f}")
             new_list = list()
 
             for key in list(b_route.keys()):
@@ -260,16 +257,11 @@ class TSPSolver:
                         new_key = list(key)
                         new_key.remove(new_list[-1])
                         new_list.append(new_key[0])
-                        # print(neww_list)
 
-            print(f"Final tour: {new_list}")
+            print(f"intermediate tour: {new_list}")
         return b_cost, new_list
 
 if __name__ == "__main__":
-    # Get the current working directory
-    current_directory = os.getcwd()
-    print("Current Working Directory:", current_directory)
-
     # Set the working directory to the directory containing the script
     script_directory = os.path.dirname(os.path.realpath(__file__))
     os.chdir(script_directory)
@@ -312,7 +304,8 @@ if __name__ == "__main__":
     
     f3.write("=============================================== \n") 
     f3.write(f"final result cost: {best:.4f} | optimal tour {best_tour} \n") 
-    f3.close() 
+    print(f"final result cost: {best:.4f} | optimal tour {best_tour} \n")
+    f3.close()
     
         
 

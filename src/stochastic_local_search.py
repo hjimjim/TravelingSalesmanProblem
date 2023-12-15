@@ -6,7 +6,6 @@ import os, datetime
 class TSPSolver:
     def __init__(self, graph, intermediate_file):
         self.graph = graph
-        self.random_sample = self.nearest_neighbor()
         self.f2 = intermediate_file
 
     # tour = {(0,1):True, (1,2):True, (2,3):True, (3,4):True, (4,0):False}
@@ -224,7 +223,9 @@ class TSPSolver:
 
     def solve(self):
         random_sample = self.nearest_neighbor()
-        new_list = random_sample
+        # random_sample = random.sample(range(0, len(graph)), len(graph))
+        # random_sample.append(random_sample[0])
+        new_list = random_sample.copy()
         previous=1
         b_cost=0
         start_time = time.time()
@@ -233,7 +234,10 @@ class TSPSolver:
             b_cost, b_route = self.make_neighbor(new_list)
 
             self.f2.seek(0)
-            self.f2.write(f"{b_cost:.4f} | {time.time() - start_time:.4f} \n")
+            if f"{previous:.4f}" == f"{b_cost:.4f}":
+                break
+            total_time = time.time() - start_time 
+            self.f2.write(f"{b_cost:.4f} | {total_time:.4f} \n")
             new_list = list()
 
             for key in list(b_route.keys()):
@@ -259,7 +263,7 @@ class TSPSolver:
                         new_list.append(new_key[0])
 
             print(f"intermediate tour: {new_list}")
-        return b_cost, new_list
+        return b_cost, new_list, total_time, self.cost(random_sample) 
 
 if __name__ == "__main__":
     # Set the working directory to the directory containing the script
@@ -267,7 +271,7 @@ if __name__ == "__main__":
     os.chdir(script_directory)
 
     data_file_path = "../data/"
-    data_file_name = "10_0.0_10.0.out"
+    data_file_name = "20_0.0_100.0.out"
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
     result_file_path = f"../output/sls/{formatted_datetime}/"
@@ -285,29 +289,31 @@ if __name__ == "__main__":
     
     f3 = open(f"{result_file_path}total_result_for_{len(graph)}.txt", "a+")
     f3.truncate(0) 
-    f3.write(f"count | result cost | result tour \n") 
+    f3.write(f"count | result cost | result tour | initial_cost | total_time \n") 
     best = float('inf')
     best_tour = None
-    for i in range(10):
-        inter = open(f"{result_file_path}intermediate_result_{len(graph)}_{i}.txt", "a+")
+    best_time = 0
+    for i in range(1000):
+        inter = open(f"{result_file_path}intermediate_result_{len(graph)}.txt", "a+")
         inter.truncate(0)
         inter.write(f"current best cost | time passes \n")
         solver = TSPSolver(graph, inter)
-        result_cost, result_tour = solver.solve()
+        result_cost, result_tour, total_time, initial_cost = solver.solve()
         inter.close()
         f3.seek(0)
-        f3.write(f"{i} | {result_cost:.4f} | {result_tour} \n") 
+        f3.write(f"{i} | {result_cost:.4f} | {result_tour} | {initial_cost} |{total_time:.4f} \n")
+
         if result_cost < best:
             best = result_cost
             best_tour = result_tour
+            best_time = total_time
         inter.close()
     
     f3.write("=============================================== \n") 
-    f3.write(f"final result cost: {best:.4f} | optimal tour {best_tour} \n") 
-    print(f"final result cost: {best:.4f} | optimal tour {best_tour} \n")
+    f3.write(f"final result cost: {best:.4f} | optimal tour {best_tour} | time spent {best_time:.4f} \n") 
+    print(f"final result cost: {best:.4f} | optimal tour {best_tour} | time spent {best_time:.4f} \n") 
     f3.close()
-    
-        
+
 
                 
         

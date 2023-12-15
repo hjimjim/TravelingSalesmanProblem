@@ -20,9 +20,11 @@ pip install -r requirements.txt
 
 cd src
 # for branch and bound
+# to change data insert data in the data folder and go to line 205 and change name of the file
 python3 branch_bound_dfs.py
 
 # for sls
+# to change data insert data in the data folder and go to line 274 and change name of the file
 python3 stochastic_local_search.py
 ```
 

@@ -271,7 +271,7 @@ if __name__ == "__main__":
     os.chdir(script_directory)
 
     data_file_path = "../data/"
-    data_file_name = "20_0.0_100.0.out"
+    data_file_name = "100_0.0_100.0.out"
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
     result_file_path = f"../output/sls/{formatted_datetime}/"
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     best = float('inf')
     best_tour = None
     best_time = 0
-    for i in range(1000):
+    for i in range(10):
         inter = open(f"{result_file_path}intermediate_result_{len(graph)}.txt", "a+")
         inter.truncate(0)
         inter.write(f"current best cost | time passes \n")

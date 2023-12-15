@@ -202,7 +202,7 @@ if __name__ == "__main__":
     os.chdir(script_directory)
 
     data_file_path = "../data/"
-    data_file_name = "18_0.0_10.0.out"
+    data_file_name = "10_0.0_10.0.out"
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
     result_file_path = f"../output/bnbdfs/{formatted_datetime}/"

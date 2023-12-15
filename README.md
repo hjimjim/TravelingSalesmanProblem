@@ -28,8 +28,19 @@ python3 stochastic_local_search.py
 
 ## Where to See Result
 Everytime you run python file new folder will be created. 
-Created folder names will be as follows.
-output/bnbdfs/{date}_{time}
-output/sls/{date}_{time}
-
 In each directory you can see intermediate results and total result in each folder created.
+
+Created folder names will be as follows.
+### Branch and Bound DFS Results
+- **Directory**: `output/bnbdfs/`
+  - **Folder**: Results are saved in the folder format `{date}_{time}`
+  - **Contents**:
+    - `intermediate_results_{nodecount}_{#}/`: Contains intermediate results during the algorithm's execution.
+    - `total_result_for_{nodecount}.txt`: Contains the total result of the TSP.
+
+### Stochastic Local Search Results
+- **Directory**: `output/sls/`
+  - **Folder**: Results are saved in the folder format `{date}_{time}`
+  - **Contents**:
+    - `intermediate_results_{nodecount}_{#}/`: Contains intermediate results during the algorithm's execution.
+    - `total_result_for_{nodecount}.txt`: Contains the total result of the TSP.
